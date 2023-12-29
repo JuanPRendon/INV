@@ -1,20 +1,20 @@
 import { useForm, Controller } from "react-hook-form";
 import { Button, TextField } from "@mui/material";
 import { useMutation } from "react-query";
-import { editGrupo } from "@/api/invApi";
+import { editGrupo, editUsuario } from "@/api/invApi";
 import { useRouter } from "next/navigation";
 
 
 export default function EditGrupo(props) {
   const router = useRouter()
-  const updateGrupoMutation = useMutation({
-    mutationFn: editGrupo,
+  const updateUserMutation = useMutation({
+    mutationFn: editUsuario,
   });
 
   const { control, handleSubmit,formState:{errors}} = useForm({});
 
   const onSubmit = (data) =>{
-    updateGrupoMutation.mutate({
+    updateUserMutation.mutate({
       ...data
     })
   }
@@ -28,15 +28,15 @@ export default function EditGrupo(props) {
           {...field}
           fullWidth
           className='border rounded text-gray-700'
-          placeholder="ID Grupo"
+          placeholder="ID Usuario"
           variant="outlined" 
           size="small" 
           required
           disabled/>}
-        name="idGrupo"
+        name="idUser"
         control={control}
         rules={{ required: true }}
-        defaultValue={props.datos.searchParams.idGrupo}
+        defaultValue={props.datos.searchParams.idUser}
       />
       </div>
     <div className='mb-4'>
@@ -50,10 +50,10 @@ export default function EditGrupo(props) {
           variant="outlined" 
           size="small" 
           required/>}
-        name="usuario"
+        name="user"
         control={control}
         rules={{ required: true }}
-        defaultValue={props.datos.searchParams.usuario}
+        defaultValue={props.datos.searchParams.user}
       />
       </div>
       <div className='mb-4'>
@@ -73,44 +73,10 @@ export default function EditGrupo(props) {
         defaultValue={props.datos.searchParams.pass}
       />
       </div>
-      <div className='mb-4'>
-      <Controller
-        render={({ field }) => 
-        <TextField 
-          {...field}
-          fullWidth
-          className='border rounded text-gray-700'
-          placeholder="Almacen"
-          variant="outlined" 
-          size="small" 
-          required/>}
-        name="almacen"
-        control={control}
-        rules={{ required: true }}
-        defaultValue={props.datos.searchParams.almacen}
-      />
-      </div>
-      <div className='mb-4'>
-      <Controller
-        render={({ field }) => 
-        <TextField 
-          {...field}
-          fullWidth
-          className='border rounded text-gray-700'
-          placeholder="Numero Conteo"
-          variant="outlined" 
-          size="small" 
-          required/>}
-        name="conteo"
-        control={control}
-        rules={{ required: true }}
-        defaultValue={props.datos.searchParams.conteo}
-      />
-      </div>
       <Button type="submit">Enviar</Button>
-      <Button color="error" href="/grupo">Cancelar</Button>
+      <Button color="error" href="/usuario">Cancelar</Button>
     </form>
-    {updateGrupoMutation.isSuccess ? router.push('/grupo'): null}
+    {updateUserMutation.isSuccess ? router.push('/usuario'): null}
     </div>
   );
 };

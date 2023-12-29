@@ -20,7 +20,8 @@ export default function EditConteo(props) {
   const { control, handleSubmit,formState:{errors} } = useForm({
     resolver: yupResolver(schema)
   });
-
+  
+  
   const onSubmit = (data) => {
    updateConteoMutation.mutate({
     ...data

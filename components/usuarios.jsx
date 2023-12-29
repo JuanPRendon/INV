@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { deleteGrupo, getGrupos} from "@/api/invApi"
+import { deleteUsuario, getUsuarios } from "@/api/invApi"
 import { useQuery,useMutation,useQueryClient } from "react-query"
 import { Table,TableBody,TableCell,TableContainer,TableHead,TableRow,Paper,Button,Dialog,DialogContent,DialogActions } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -9,21 +9,21 @@ import AddIcon from '@mui/icons-material/Add';
 import { red,green } from "@mui/material/colors";
 
 
-export default function TableAdmin(){
+export default function Usuarios(){
     const queryclient = useQueryClient()
-    const { isLoading, isError, data:grupos, error } = useQuery({
-        queryKey: ['grupos'],
-        queryFn: getGrupos,
+    const { isLoading, isError, data:usuarios, error } = useQuery({
+        queryKey: ['usuarios'],
+        queryFn: getUsuarios,
       })
     
-    const deleteGrupoMutation =useMutation({
-        mutationFn:deleteGrupo,
+    const deleteUsuarioMutation =useMutation({
+        mutationFn: deleteUsuario,
         onSuccess: () => {
-            alert("Grupo Eliminado")
-            queryclient.invalidateQueries("grupos")
+            alert("Usuario Eliminado")
+            queryclient.invalidateQueries("usuario")
         },
         onError: () => {
-            alert("No fue posible eliminar el grupo")
+            alert("No fue posible eliminar el usuario")
         }
     })
 
@@ -33,25 +33,24 @@ export default function TableAdmin(){
 
     const handleClose = () => setOpen(false)
     
-    const handleOpen = (g) => {
+    const handleOpen = (u) => {
         setOpen(true)
-        setId(g.idGrupo)
+        setId(u.idUsuario)
     }
 
-    const handleEdit = (g) => {
-        router.push(`/editGrupo?idGrupo=${g.idGrupo}&usuario=${g.nombre}&pass=${g.contraseña}&almacen=${g.almacen}&conteo=${g.conteo}`);
+    const handleEdit = (u) => {
+        router.push(`/editUsuario?idUser=${u.idUsuario}&user=${u.nombre}&pass=${u.contraseña}`);
       };
 
     if (isLoading) return <div>Loading...</div>;
     else if (isError) return <div>{error.message}</div>;
-    
     return(
     <>
         <div className="m-5">
         <Button sx={{background: green[500], color:'white', p:1,
         '&:hover': {
             backgroundColor: green[800],
-        },}} startIcon={<AddIcon/>} size="small" href="/crearGrupo">Nuevo</Button>
+        },}} startIcon={<AddIcon/>} size="small" href="/crearUsuario">Nuevo</Button>
         </div>
         <div className="m-5">
         <TableContainer component={Paper}>
@@ -61,23 +60,19 @@ export default function TableAdmin(){
                         <TableCell align="center">ACTIONS</TableCell>
                         <TableCell>ID</TableCell>
                         <TableCell>USUARIO</TableCell>
-                        <TableCell>ALMACEN</TableCell>
-                        <TableCell>CONTEO</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {grupos.map((grupo)=>(
+                    {usuarios.map((usuario)=>(
                         <>
-                        <TableRow key={grupo.idGrupo}>
+                        <TableRow key={usuario.idUsuario}>
                             <TableCell width={200}>
-                                <Button onClick={() => handleEdit(grupo)}><EditIcon fontSize="small" /></Button>
-                                <Button onClick={() => handleOpen(grupo)}><DeleteIcon fontSize="small" sx={{color : red[500]}}/></Button>
+                                <Button onClick={() => handleEdit(usuario)}><EditIcon fontSize="small" /></Button>
+                                <Button onClick={() => handleOpen(usuario)}><DeleteIcon fontSize="small" sx={{color : red[500]}}/></Button>
                                 <ShowModal />
                             </TableCell>
-                            <TableCell>{grupo.idGrupo}</TableCell>
-                            <TableCell>{grupo.nombre}</TableCell>
-                            <TableCell>{grupo.almacen}</TableCell>
-                            <TableCell>{grupo.conteo}</TableCell>
+                            <TableCell>{usuario.idUsuario}</TableCell>
+                            <TableCell>{usuario.nombre}</TableCell>
                         </TableRow>
                         </> 
                     ))}
@@ -99,7 +94,7 @@ export default function TableAdmin(){
             <DialogActions>
                 <Button onClick={() =>{ 
                     handleClose(),
-                    deleteGrupoMutation.mutate({id})    
+                    deleteUsuarioMutation.mutate({id})    
                 }}>Aceptar</Button>
                 <Button onClick={handleClose} color="error">Cancelar</Button>
             </DialogActions>

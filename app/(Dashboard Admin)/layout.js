@@ -27,14 +27,14 @@ export default function RootLayout({ children }) {
         </Link>
       </Tooltip>
       <Tooltip arrow placement="right" title="Usuarios">
-        <Link href='/Auralac'>
+        <Link href='/usuario'>
           <div className='bg-gray-100 hover:bg-gray-200 cursor-pointer my-4 p-3 rounded-lg inline-block'>
             <PersonAddIcon size={20} color="action"/>
           </div>
         </Link>
       </Tooltip>
       <Tooltip arrow placement="right" title="Materiales">
-        <Link href='/login'>
+        <Link href='/materiales'>
           <div className='bg-gray-100 hover:bg-gray-200 cursor-pointer my-4 p-3 rounded-lg inline-block'>
             <ArticleIcon size={20} color="action"/>
           </div>
