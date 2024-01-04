@@ -5,6 +5,16 @@ const Api = axios.create({
     withCredentials: true
 })
 
+export const getMateriales = async() => {
+    const res = await Api.get('/materiales')
+    return res.data
+}
+
+export const registroMateriales = async(formData) =>{
+    const res = await Api.post('/materiales',formData)
+    return res.data
+}
+
 export const validateLoginGrupo = async(grupo,pass) => {
     const res = await Api.post('/loginGrupo',{grupo,pass})
     return res.data
@@ -44,8 +54,8 @@ export const deleteGrupo = async(idGrupo) =>{
 }
 
 
-export const getMateriales = async() => {
-    const res = await Api.get('/materiales') 
+export const getMaterialesConteo = async() => {
+    const res = await Api.get('/materialesConteo') 
     return res.data
 }
 

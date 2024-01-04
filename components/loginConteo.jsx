@@ -58,7 +58,7 @@ export default function LoginConteo(){
               variant="outlined"
               size="small" 
               required
-              type="pass"/>}
+              type="password"/>}
             name="pass"
             control={control}
             defaultValue=""

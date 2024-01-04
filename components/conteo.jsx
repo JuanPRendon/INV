@@ -5,7 +5,7 @@ import { Button, TextField,Grid,Checkbox } from "@mui/material";
 import { useQuery,useMutation } from "react-query";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
-import { getMateriales,CrearConteo } from "@/api/invApi";
+import { getMaterialesConteo,CrearConteo } from "@/api/invApi";
 
 
 const schema = yup.object({
@@ -16,7 +16,7 @@ export default function Conteo() {
   
   const { isLoading, isError, data:Materiales, error } = useQuery({
     queryKey: ['Materiales'],
-    queryFn: getMateriales,
+    queryFn: getMaterialesConteo,
   })
   const addConteoMutation = useMutation({
     mutationFn: CrearConteo,
