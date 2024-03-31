@@ -4,6 +4,7 @@ import GroupsIcon from '@mui/icons-material/Groups';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import ArticleIcon from '@mui/icons-material/Article';
+import DescriptionIcon from '@mui/icons-material/Description';
 import Link from 'next/link'
 
 export default function RootLayout({ children }) {
@@ -37,6 +38,13 @@ export default function RootLayout({ children }) {
         <Link href='/materiales'>
           <div className='bg-gray-100 hover:bg-gray-200 cursor-pointer my-4 p-3 rounded-lg inline-block'>
             <ArticleIcon size={20} color="action"/>
+          </div>
+        </Link>
+      </Tooltip>
+      <Tooltip arrow placement="right" title="Documento">
+        <Link href='/documento'>
+          <div className='bg-gray-100 hover:bg-gray-200 cursor-pointer my-4 p-3 rounded-lg inline-block'>
+            <DescriptionIcon size={20} color="action"/>
           </div>
         </Link>
       </Tooltip>

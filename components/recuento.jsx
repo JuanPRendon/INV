@@ -24,6 +24,11 @@ const Recuento = () => {
       const columns = useMemo(
         () => [
           {
+            header: 'Documento',
+            accessorKey:'documento',
+            enableColumnOrdering: false,
+          },
+          {
             header: 'Material',
             accessorKey: 'material',
             enableGrouping: false,

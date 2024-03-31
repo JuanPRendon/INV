@@ -7,6 +7,20 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import { getMaterialesConteo,CrearConteo } from "@/api/invApi";
 
+const options=[
+  {
+    label:"opcion1",
+    value:1
+  },
+  {
+    label:"o2",
+    value:2
+  },
+  {
+    label:"o3",
+    value:3
+  }
+]
 
 const schema = yup.object({
   cantidad : yup.number().typeError('requerido').positive('debe ser positivo')
@@ -14,21 +28,6 @@ const schema = yup.object({
 
 export default function Conteo() {
   
-  const { isLoading, isError, data:Materiales, error } = useQuery({
-    queryKey: ['Materiales'],
-    queryFn: getMaterialesConteo,
-  })
-  const addConteoMutation = useMutation({
-    mutationFn: CrearConteo,
-    onError: (error) => {
-      if (error.response?.status === 406) {
-        alert(error.response.data.message);
-      } else {
-        console.error(error.message);
-      }
-    }
-  });
-
   const { control, handleSubmit,formState:{errors} } = useForm({
     resolver: yupResolver(schema)
   });
@@ -36,19 +35,9 @@ export default function Conteo() {
   const [isLoteChecked, setIsLoteChecked] = useState(false);
   const onSubmit = (data) => {
     const materialId = data.material && data.material.value;
-    addConteoMutation.mutate({
-      ...data,
-      material: materialId
-    })
+    console.log(data);
   };
 
-  if (isLoading) {
-    return <span>Loading...</span>
-  }
-  
-  if (isError) {
-    return <span>Error: {error.message}</span>
-  }
   return (
     <div className="flex justify-center mt-10">
     <form onSubmit={handleSubmit(onSubmit)} className='bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 border rounded w-80'>
@@ -58,7 +47,8 @@ export default function Conteo() {
         render={({ field }) => (
           <Select
             {...field}
-            options={Materiales}
+            isMulti
+            options={options}
             placeholder="Material"
             required
           />
@@ -135,7 +125,6 @@ export default function Conteo() {
         control={control}
         defaultValue=""
       />
-      <p className="text-red-600">{errors.cantidad?.message}</p>
       </div>
       <Button type=" submit">Enviar</Button>
     </form>

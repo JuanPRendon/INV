@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const Api = axios.create({
-    baseURL: 'http://localhost:4000/300',
+    baseURL: 'http://localhost:4000',
     withCredentials: true
 })
 
@@ -56,6 +56,11 @@ export const deleteGrupo = async(idGrupo) =>{
 
 export const getMaterialesConteo = async() => {
     const res = await Api.get('/materialesConteo') 
+    return res.data
+}
+
+export const getMaterialesDocumento = async () =>{
+    const res = await Api.get('/materialesDocumento')
     return res.data
 }
 
